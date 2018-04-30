@@ -55,9 +55,8 @@ public class OrderDao {
         query.setParameter("pid", cart.get(i).getId());
         list = query.list();
         pr = (Product) list.get(0);
-        pr.setQuantity(cart.get(i).getQuantity() - quantity.get(i));
+        pr.setQuantity(pr.getQuantity() - quantity.get(i));
         
-        pr.setOrders(orders);
         products.add(pr);
         
 //        pr = cart.get(i);
@@ -78,6 +77,7 @@ public class OrderDao {
 //        
 //            cart.get(i).setOrders(orders);
 //        }
+        
         
         order.setProducts(products);
         
