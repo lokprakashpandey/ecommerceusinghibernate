@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -43,9 +44,13 @@ public class Order implements Serializable {
     @JoinColumn(name="customer_id", nullable=false, referencedColumnName="id")
     private Customer customer;
     
+    
+    @ManyToMany
     @Cascade({CascadeType.PERSIST})
-    @ManyToMany(mappedBy="orders")
-    private List<Product> products;  
+    @JoinTable(name = "product_order", 
+            joinColumns = { @JoinColumn(referencedColumnName="id") }, 
+            inverseJoinColumns = { @JoinColumn(referencedColumnName="id") })
+    private List<Product> products;
     
     
     public Long getId() {

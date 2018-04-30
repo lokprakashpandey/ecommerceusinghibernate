@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
@@ -39,14 +37,10 @@ public class Product implements Serializable {
     @Column(name = "path", nullable = false)
     private String path;
     
-    @ManyToMany
     @Cascade({CascadeType.PERSIST})
-    @JoinTable(name = "product_order", 
-            joinColumns = { @JoinColumn(referencedColumnName="id") }, 
-            inverseJoinColumns = { @JoinColumn(referencedColumnName="id") })
+    @ManyToMany(mappedBy="products")
     private List <Order> orders;
 
-    
     
     public Long getId() {
         return id;
